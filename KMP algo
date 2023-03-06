@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//substring of len 1 has no prefix == suffix i.e prefix_substring for len == 1 is 0
+vector<int> prefix_substring(string s){    //O(n)
+    vector<int> prefix(s.size(),0);
+    int j;
+    for(int i =1;i<s.size();i++){
+        j = prefix[i-1];
+        while(j>0 && s[i]!=s[j]){
+            j = prefix[j-1];
+        }
+        if(s[i] == s[j]){
+            j++;
+        }
+        prefix[i] = j; 
+    }
+    return prefix;
+    // 0 1 0 0 1 2 3 0 0 1 0 1 2 3 
+}
+int main(){
+    // find occurance of string t in string s if not found return -1
+    string s = "aabcaabddacaab";
+    string t = "dacaa";
+
+    //make prefix string
+    vector<int> prefix = prefix_substring(s);
+    int pos = -1, j = 0,i = 0;
+    //kmp
+    while(i<s.size()){   //O(m)
+        if(s[i] == t[j]){
+            j++;
+            i++;
+        }
+        else{
+            if(j!=0){
+                j = prefix[j-1];
+            }
+            else{
+                i++;
+            }
+        }
+        if(j == t.size()){
+            pos = i-t.size();
+            break;
+        }
+    }
+    cout<<pos;
+    return 0;
+}
