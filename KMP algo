@@ -24,7 +24,7 @@ int main(){
     string t = "dacaa";
 
     //make prefix string
-    vector<int> prefix = prefix_substring(s);
+    vector<int> prefix = prefix_substring(t);
     int pos = -1, j = 0,i = 0;
     //kmp
     while(i<s.size()){   //O(m)
